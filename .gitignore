@@ -1,0 +1,9 @@
+**/*
+!.gitignore
+!**/Makefile
+!**/includes
+!src/
+!**/*.h
+!**/*.c
+!src/server
+!src/ai
