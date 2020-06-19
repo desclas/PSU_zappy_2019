@@ -13,8 +13,6 @@ SRC	=	lib/connection.c	\
 		lib/wait.c		\
 		lib/epoll_st.c
 
-SRC	:=	$(addprefix src/, $(SRC))
-
 OBJ	=	$(SRC:.c=.o)
 
 CFLAGS	=	-W -Wall -Werror -Wextra -Iinclude -fPIC
