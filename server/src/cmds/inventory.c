@@ -1,8 +1,8 @@
 /*
-** EPITECH PROJECT, 2018
-** zappy
+** EPITECH PROJECT, 2019
+** PSU_zappy_2019
 ** File description:
-** commande: inventory
+** inventory.c
 */
 
 #include "server.h"
@@ -15,14 +15,14 @@
 */
 void inventory(client_t *cli, UNUSED char *cmd)
 {
-	char *inv = NULL;
+    char *inv = NULL;
 
-	asprintf(&inv,"[%s %d, %s %d, %s %d, %s %d, %s %d, %s %d, %s %d]"
-		, g_items[0], cli->game.inv[0], g_items[1], cli->game.inv[1],
-		g_items[2], cli->game.inv[2], g_items[3], cli->game.inv[3],
-		g_items[4], cli->game.inv[4], g_items[5], cli->game.inv[5],
-		g_items[6], cli->game.inv[6]);
-	dprintf(cli->fd, "%s\n", inv);
-	dprintf(cli->fd, "ok\n");
-	free(inv);
+    asprintf(&inv,"[%s %d, %s %d, %s %d, %s %d, %s %d, %s %d, %s %d]"
+        , g_items[0], cli->game.inv[0], g_items[1], cli->game.inv[1],
+        g_items[2], cli->game.inv[2], g_items[3], cli->game.inv[3],
+        g_items[4], cli->game.inv[4], g_items[5], cli->game.inv[5],
+        g_items[6], cli->game.inv[6]);
+    dprintf(cli->fd, "%s\n", inv);
+    dprintf(cli->fd, "ok\n");
+    free(inv);
 }

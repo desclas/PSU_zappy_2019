@@ -244,7 +244,7 @@ pars.add_argument("-p", type=int, default=4242, help="is the port number")
 pars.add_argument("-n", type=str, default="Team1", help="is the name of the team")
 pars.add_argument("-h", type=str, default="localhost", help="is the name of the machine; localhost by default")
 ag = pars.parse_args()
-srvlib = CDLL("./AI/lib/libzappy.so")
+srvlib = CDLL("./ai/lib/libzappy.so")
 srv = srvlib.connection_to_server(c_int(ag.p))
 index = srvlib.epoll_wait_it(srv)
 srvlib.epoll_write.argtypes = [c_void_p, c_char_p]

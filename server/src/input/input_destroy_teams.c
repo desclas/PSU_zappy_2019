@@ -1,8 +1,8 @@
 /*
-** EPITECH PROJECT, 2018
-** PSU_zappy_2017
+** EPITECH PROJECT, 2019
+** PSU_zappy_2019
 ** File description:
-** input_destroy_teams
+** input_destroy_teams.c
 */
 
 #include "server.h"
@@ -12,13 +12,13 @@
 **
 ** @param teams to free
 */
-void	input_destroy_teams(char **teams)
+void input_destroy_teams(char **teams)
 {
-	int	it = 0;
+    int it = 0;
 
-	while (teams[it] != NULL) {
-		free(teams[it]);
-		it++;
-	}
-	free(teams);
+    while (teams[it] != NULL) {
+        free(teams[it]);
+        it++;
+    }
+    free(teams);
 }

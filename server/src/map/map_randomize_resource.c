@@ -1,8 +1,8 @@
 /*
-** EPITECH PROJECT, 2018
-** PSU_zappy_2017
+** EPITECH PROJECT, 2019
+** PSU_zappy_2019
 ** File description:
-** map_randomize_resource
+** map_randomize_resource.c
 */
 
 #include "server.h"
@@ -14,10 +14,10 @@
 ** @param upper maximum of resources
 ** @return int number of resources
 */
-int	map_randomize_resource(int lower, int upper)
+int map_randomize_resource(int lower, int upper)
 {
-	int	random;
+    int random;
 
-	random = rand() % upper + lower;
-	return (random);
+    random = rand() % upper + lower;
+    return (random);
 }

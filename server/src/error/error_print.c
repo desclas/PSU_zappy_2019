@@ -1,8 +1,8 @@
 /*
-** EPITECH PROJECT, 2018
-** PSU_zappy_2017
+** EPITECH PROJECT, 2019
+** PSU_zappy_2019
 ** File description:
-** error_print
+** error_print.c
 */
 
 #include "server.h"
@@ -14,10 +14,10 @@
 ** @param value return value
 ** @return int return value arg
 */
-int	error_print_perror(char *error, int value)
+int error_print_perror(char *error, int value)
 {
-	perror(error);
-	return (value);
+    perror(error);
+    return (value);
 }
 
 /*!
@@ -27,8 +27,8 @@ int	error_print_perror(char *error, int value)
 ** @param value return value
 ** @return int return value arg
 */
-int	error_print_message(char *error, int value)
+int error_print_message(char *error, int value)
 {
-	fprintf(stderr, "%s\n", error);
-	return (value);
+    fprintf(stderr, "%s\n", error);
+    return (value);
 }

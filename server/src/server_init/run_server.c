@@ -1,26 +1,26 @@
 /*
-** EPITECH PROJECT, 2018
-** handle_events.c
+** EPITECH PROJECT, 2019
+** PSU_zappy_2019
 ** File description:
-** handle_events.c
+** run_server.c
 */
 
 #include "server.h"
 
-int	accept_client_connection(void)
+int accept_client_connection(void)
 {
-	int			fd;
-	socklen_t		len = sizeof(struct sockaddr_in);
-	struct epoll_event	ev;
-	struct sockaddr_in	addr;
+    int fd;
+    socklen_t len = sizeof(struct sockaddr_in);
+    struct epoll_event ev;
+    struct sockaddr_in addr;
 
-	fd = accept(server->host->fd, (struct sockaddr *)&addr, &len);
-	ev.events = EPOLLIN;
-	if (add_client_to_list(fd) == -1)
-		return (-1);
-	ev.data.ptr = server->tail;
-	epoll_ctl(server->ep_opt->epfd, EPOLL_CTL_ADD, fd, &ev);
-	return (0);
+    fd = accept(server->host->fd, (struct sockaddr *)&addr, &len);
+    ev.events = EPOLLIN;
+    if (add_client_to_list(fd) == -1)
+        return (-1);
+    ev.data.ptr = server->tail;
+    epoll_ctl(server->ep_opt->epfd, EPOLL_CTL_ADD, fd, &ev);
+    return (0);
 }
 
 /*!
@@ -32,10 +32,10 @@ int	accept_client_connection(void)
 */
 bool team_valid(char *team)
 {
-	for (size_t i = 0; server->input->teams[i] != NULL; i++)
-		if (strcmp(team, server->input->teams[i]) == 0)
-			return (true);
-	return (false);
+    for (size_t i = 0; server->input->teams[i] != NULL; i++)
+        if (strcmp(team, server->input->teams[i]) == 0)
+            return (true);
+    return (false);
 }
 
 /*!
@@ -48,17 +48,17 @@ bool team_valid(char *team)
 */
 bool check_connectable(client_t *client, char *team)
 {
-	size_t count = 0;
+    size_t count = 0;
 
-	while (client->prev != NULL)
-		client = client->prev;
-	while (client != NULL) {
-		if (client->log && client->status == PLAYER &&
-				strcmp(client->game.team, team) == 0)
-			count++;
-		client = client->next;
-	}
-	return ((count - server->input->client_nb < 1) ? false : true);
+    while (client->prev != NULL)
+        client = client->prev;
+    while (client != NULL) {
+        if (client->log && client->status == PLAYER &&
+                strcmp(client->game.team, team) == 0)
+            count++;
+        client = client->next;
+    }
+    return ((count - server->input->client_nb < 1) ? false : true);
 }
 
 /*!
@@ -71,17 +71,17 @@ bool check_connectable(client_t *client, char *team)
 */
 bool egg_connecable(client_t *client, char *team)
 {
-	size_t count = 0;
+    size_t count = 0;
 
-	while (client->prev != NULL)
-		client = client->prev;
-	while (client != NULL) {
-		if (!client->log && client->status == EGG &&
-				strcmp(client->game.team, team) == 0)
-			count++;
-		client = client->next;
-	}
-	return (count != 0);
+    while (client->prev != NULL)
+        client = client->prev;
+    while (client != NULL) {
+        if (!client->log && client->status == EGG &&
+                strcmp(client->game.team, team) == 0)
+            count++;
+        client = client->next;
+    }
+    return (count != 0);
 }
 
 /*!
@@ -92,11 +92,11 @@ bool egg_connecable(client_t *client, char *team)
 */
 void log_client(client_t *client, char *team)
 {
-	client->log = true;
-	client->game.team = team;
-	client->eat = (((float)(126)) / server->input->freq) +
-		(clock() / CLOCKS_PER_SEC);
-	connect_nbr(client, team);
-	dprintf(client->fd, "%d %d\n", server->input->width,
-		server->input->height);
+    client->log = true;
+    client->game.team = team;
+    client->eat = (((float)(126)) / server->input->freq) +
+        (clock() / CLOCKS_PER_SEC);
+    connect_nbr(client, team);
+    dprintf(client->fd, "%d %d\n", server->input->width,
+        server->input->height);
 }

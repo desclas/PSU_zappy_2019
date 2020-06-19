@@ -1,8 +1,8 @@
 /*
-** EPITECH PROJECT, 2018
-** PSU_zappy_2017
+** EPITECH PROJECT, 2019
+** PSU_zappy_2019
 ** File description:
-** map_destroy_resources
+** map_destroy_resources.c
 */
 
 #include "server.h"
@@ -12,13 +12,13 @@
 **
 ** @param resources resources struct
 */
-void	map_destroy_resources(resources_t *resources)
+void map_destroy_resources(resources_t *resources)
 {
-	int	i = 0;
+    int i = 0;
 
-	while (i < 7) {
-		free(resources[i].name);
-		i++;
-	}
-	free(resources);
+    while (i < 7) {
+        free(resources[i].name);
+        i++;
+    }
+    free(resources);
 }

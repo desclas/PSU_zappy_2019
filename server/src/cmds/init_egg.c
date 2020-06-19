@@ -1,8 +1,8 @@
 /*
-** EPITECH PROJECT, 2018
-** zappy
+** EPITECH PROJECT, 2019
+** PSU_zappy_2019
 ** File description:
-** init egg
+** init_egg.c
 */
 
 #include "server.h"
@@ -15,9 +15,9 @@
 */
 void init_egg(client_t *client, UNUSED char *cmd)
 {
-	if (client->log == true)
-		client->eat = (((float)(126)) / server->input->freq) +
-			(clock() / CLOCKS_PER_SEC);
-	else
-		client->eat = -1;
+    if (client->log == true)
+        client->eat = (((float)(126)) / server->input->freq) +
+            (clock() / CLOCKS_PER_SEC);
+    else
+        client->eat = -1;
 }

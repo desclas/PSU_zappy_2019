@@ -1,8 +1,8 @@
 /*
-** EPITECH PROJECT, 2018
-** zappy
+** EPITECH PROJECT, 2019
+** PSU_zappy_2019
 ** File description:
-** init game struct
+** init_game.c
 */
 
 #include "server.h"
@@ -15,6 +15,6 @@
 */
 void init_game(game_t *game, bool food)
 {
-	game->inv[FOOD] = food * 10;
-	game->lvl = 1;
+    game->inv[FOOD] = food * 10;
+    game->lvl = 1;
 }

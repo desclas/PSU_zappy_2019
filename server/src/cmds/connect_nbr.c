@@ -1,8 +1,8 @@
 /*
-** EPITECH PROJECT, 2018
-** zappy
+** EPITECH PROJECT, 2019
+** PSU_zappy_2019
 ** File description:
-** command: connect_nbr
+** connect_nbr.c
 */
 
 #include "server.h"
@@ -15,24 +15,24 @@
 */
 void connect_nbr(client_t *client, UNUSED char *cmd)
 {
-	int count = 0;
-	char *team = client->game.team;
-	int eggnl = 0;
-	client_t *tmp = client;
+    int count = 0;
+    char *team = client->game.team;
+    int eggnl = 0;
+    client_t *tmp = client;
 
-	while (client->prev != NULL)
-		client = client->prev;
-	while (client != NULL) {
-		if (client->log && client->status != EGG &&
-				strcmp(client->game.team, team) == 0)
-			count++;
-		else if (!client->log && client->status == EGG &&
-				strcmp(client->game.team, team) == 0)
-			eggnl++;
-		client = client->next;
-	}
-	if (server->input->client_nb - count == 0)
-		dprintf(tmp->fd, "%d\n", eggnl);
-	else
-		dprintf(tmp->fd, "%d\n", server->input->client_nb - count);
+    while (client->prev != NULL)
+        client = client->prev;
+    while (client != NULL) {
+        if (client->log && client->status != EGG &&
+                strcmp(client->game.team, team) == 0)
+            count++;
+        else if (!client->log && client->status == EGG &&
+                strcmp(client->game.team, team) == 0)
+            eggnl++;
+        client = client->next;
+    }
+    if (server->input->client_nb - count == 0)
+        dprintf(tmp->fd, "%d\n", eggnl);
+    else
+        dprintf(tmp->fd, "%d\n", server->input->client_nb - count);
 }

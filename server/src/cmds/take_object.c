@@ -1,8 +1,8 @@
 /*
-** EPITECH PROJECT, 2018
-** zappy
+** EPITECH PROJECT, 2019
+** PSU_zappy_2019
 ** File description:
-** commande: take object
+** take_object.c
 */
 
 #include "server.h"
@@ -15,20 +15,20 @@
 */
 void take_object(client_t *cli, char *cmd)
 {
-	size_t i;
+    size_t i;
 
-	for (i = 0; i != 7; i++)
-		if (strncmp(g_items[i], cmd + 5, strlen(g_items[i])) == 0)
-			break;
-	if (i != 7) {
-		if (server->map[cli->game.x]
-			[cli->game.y]->resources[i].number > 0) {
-			tile_del_resource(i, 1,
-				server->map[cli->game.x][cli->game.y]);
-			cli->game.inv[i]++;
-			dprintf(cli->fd, "ok\n");
-		} else
-			dprintf(cli->fd, "ko\n");
-	} else
-		dprintf(cli->fd, "ko\n");
+    for (i = 0; i != 7; i++)
+        if (strncmp(g_items[i], cmd + 5, strlen(g_items[i])) == 0)
+            break;
+    if (i != 7) {
+        if (server->map[cli->game.x]
+            [cli->game.y]->resources[i].number > 0) {
+            tile_del_resource(i, 1,
+                server->map[cli->game.x][cli->game.y]);
+            cli->game.inv[i]++;
+            dprintf(cli->fd, "ok\n");
+        } else
+            dprintf(cli->fd, "ko\n");
+    } else
+        dprintf(cli->fd, "ko\n");
 }

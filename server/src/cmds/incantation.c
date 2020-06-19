@@ -1,16 +1,16 @@
 /*
-** EPITECH PROJECT, 2018
-** zappy
+** EPITECH PROJECT, 2019
+** PSU_zappy_2019
 ** File description:
-** command: incantation
+** incantation.c
 */
 
 #include "server.h"
 
 const int up_cond[7][7] = { {1, 0, 0, 0, 0, 0, 1 }, { 1, 1, 1, 0, 0, 0, 2 },
-		{ 2, 0, 1, 0, 2, 0, 2 }, { 1, 1, 2, 0, 1, 0, 4 },
-		{ 1, 2, 1, 3, 0, 0, 4 }, { 1, 2, 3, 0, 1, 0, 6 },
-		{ 2, 2, 2, 2, 2, 1, 6 } };
+        { 2, 0, 1, 0, 2, 0, 2 }, { 1, 1, 2, 0, 1, 0, 4 },
+        { 1, 2, 1, 3, 0, 0, 4 }, { 1, 2, 3, 0, 1, 0, 6 },
+        { 2, 2, 2, 2, 2, 1, 6 } };
 
 /*!
 ** @brief upgrade player
@@ -20,19 +20,24 @@ const int up_cond[7][7] = { {1, 0, 0, 0, 0, 0, 1 }, { 1, 1, 1, 0, 0, 0, 2 },
 */
 void incantation(client_t *client, UNUSED char *cmd)
 {
-	size_t i;
+    size_t i = 0;
 
-	for (i = 0; i != 6; i++)
-		if (client->game.inv[i + 1] != up_cond[client->game.lvl][i])
-			break;
-	if (i == 6 && server->map[client->game.x][client->game.y]
-			->resources[7] == up_cond[client->game.lvl][6]) {
-		client->game.lvl++;
-		for (i = 0; i != 6; i++)
-			client->game.inv[i + 1] -=
-				up_cond[client->game.lvl - 1][i];
-		dprintf(client->fd, "Elevation underway\n"
-			"Current level: %lu\n", client->game.lvl);
-	} else
-		dprintf(client->fd, "ko\n");
+    for (client_t *tmp = server->client; tmp != NULL; tmp = tmp->next)
+        if (tmp->game.x == client->game.x && tmp->game.y == client->game.y &&
+                tmp->game.lvl == client->game.lvl)
+            i++;
+    if (i < up_cond[client->game.lvl - 1][6])
+        return ((void)dprintf(client->fd, ""));
+    for (i = 0; i < 6; i++)
+        if (server->map[client->game.y][client->game.x]->resources[i + 1] !=
+                up_cond[client->game.lvl][i])
+            break;
+    if (i != 6)
+        return ((void)dprintf(client->fd, ""));
+    i = client->game.lvl;
+    for (client_t *tmp = server->client; tmp != NULL; tmp = tmp->next)
+        if ((tmp->game.x == client->game.x && tmp->game.y ==
+                client->game.y && tmp->game.lvl == i))
+            dprintf(tmp->fd, "Elevation underway\nCurrent level: %lu\n",
+                tmp->game.lvl++);
 }

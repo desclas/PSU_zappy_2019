@@ -1,6 +1,6 @@
 /*
-** EPITECH PROJECT, 2018
-** false_cmd.c
+** EPITECH PROJECT, 2019
+** PSU_zappy_2019
 ** File description:
 ** false_cmd.c
 */
@@ -13,7 +13,7 @@
 ** @param client client triggered
 ** @param cmd UNUSED
 */
-void	false_cmd(client_t *client, UNUSED char *cmd)
+void false_cmd(client_t *client, UNUSED char *cmd)
 {
-	dprintf(client->fd, "ko\n");
+    dprintf(client->fd, "ko\n");
 }
