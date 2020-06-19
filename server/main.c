@@ -42,9 +42,6 @@ static void server_end(server_t *srv)
             free(tmp->next);
     }
     free(srv->client);
-    free(srv->ep_opt->events);
-    close(srv->ep_opt->epfd);
-    free(srv->ep_opt);
     free(srv);
 }
 

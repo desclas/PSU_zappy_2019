@@ -7,20 +7,28 @@
 
 #include "server.h"
 
-int accept_client_connection(void)
+int accept_client_connection(fd_set rfd, fd_set wfd)
 {
-    int fd;
-    socklen_t len = sizeof(struct sockaddr_in);
-    struct epoll_event ev;
-    struct sockaddr_in addr;
-
-    fd = accept(server->host->fd, (struct sockaddr *)&addr, &len);
-    ev.events = EPOLLIN;
-    if (add_client_to_list(fd) == -1)
-        return (-1);
-    ev.data.ptr = server->tail;
-    epoll_ctl(server->ep_opt->epfd, EPOLL_CTL_ADD, fd, &ev);
-    return (0);
+    SOCKADDR_IN c_sin = {0};
+    int new_csock = -1;
+    socklen_t size_sin = 0;
+    int i = 0;
+    client_t *c = NULL;
+    if (FD_ISSET(server->host->fd, &rfd) || FD_ISSET(server->host->fd, &wfd)) {
+        size_sin = sizeof(SOCKADDR_IN);
+        new_csock = accept(server->host->fd, (SOCKADDR *)&c_sin, &size_sin);
+        if (new_csock == INVALID_SOCKET) {
+            perror("accept() fail");
+            return (INVALID_SOCKET);
+        }
+        add_socket_to_client_list(new_csock);
+        c = add_client_to_list(new_csock);
+        if (c == NULL)
+            return (-1);
+    }
+    for (i = 0; i < MAX_CLIENTS; i++)
+        client_activity(server, server->client, &rfd, i);
+    return (SUCCESS);
 }
 
 /*!

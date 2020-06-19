@@ -11,8 +11,6 @@ static void eject_close_free(client_t *client)
 {
     if (client != NULL) {
         if (client->fd != -1) {
-            epoll_ctl(server->ep_opt->epfd, EPOLL_CTL_DEL,
-                client->fd, NULL);
             close(client->fd);
         }
         free(client);

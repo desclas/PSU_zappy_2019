@@ -13,19 +13,19 @@
 ** @param fd fd for communicating with client
 ** @return int sucess 0 error -1
 */
-int add_first_client_to_list(int fd)
+client_t *add_first_client_to_list(int fd)
 {
     client_t *elem = calloc(1, sizeof(client_t));
 
     if (elem == NULL)
-        return (-1);
+        return (NULL);
     elem->fd = fd;
     elem->game.lvl = 1;
     elem->next = NULL;
     elem->prev = NULL;
     server->client = elem;
     server->tail = elem;
-    return (0);
+    return (elem);
 }
 
 /*!
@@ -34,13 +34,13 @@ int add_first_client_to_list(int fd)
 ** @param fd fd for communicating with client
 ** @return int sucess 0 error -1
 */
-int add_last_client_to_list(int fd)
+client_t *add_last_client_to_list(int fd)
 {
     client_t *elem = calloc(1, sizeof(client_t));
-    client_t *tmp;
+    client_t *tmp = NULL;
 
     if (elem == NULL)
-        return (-1);
+        return (NULL);
     elem->fd = fd;
     elem->game.lvl = 1;
     elem->next = NULL;
@@ -48,7 +48,7 @@ int add_last_client_to_list(int fd)
     for (tmp = server->client; tmp->next != NULL; tmp = tmp->next);
     tmp->next = elem;
     elem->prev = tmp;
-    return (0);
+    return (elem);
 }
 
 /*!
@@ -57,17 +57,20 @@ int add_last_client_to_list(int fd)
 ** @param fd fd for communicating with client
 ** @return int sucess 0 error -1
 */
-int add_client_to_list(int fd)
+client_t *add_client_to_list(int fd)
 {
+    client_t *elem = NULL;
+
     if (server->client == NULL) {
-        if (add_first_client_to_list(fd) == -1)
-            return (-1);
+        elem = add_first_client_to_list(fd);
+        if (!elem)
+            return (NULL);
+    } else {
+        elem = add_last_client_to_list(fd);
+        if (!elem)
+            return (NULL);
     }
-    else {
-        if (add_last_client_to_list(fd) == -1)
-            return (-1);
-    }
-    return (0);
+    return (elem);
 }
 
 void display_clients(void)

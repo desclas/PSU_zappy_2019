@@ -78,9 +78,6 @@ int init_server(int ac, char **av)
         return (-1);
     if (init_host_options(&server->host) == -1)
         return (-1);
-    server->ep_opt = init_epoll_options();
-    if (server->ep_opt == NULL)
-        return (-1);
     bind(server->host->fd, (struct sockaddr *) &server->host->addr,
         sizeof(struct sockaddr_in));
     listen(server->host->fd, 100);

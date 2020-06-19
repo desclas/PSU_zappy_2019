@@ -16,14 +16,14 @@
 void log_egg(client_t *client, char *team)
 {
     int fd = client->fd;
-    struct epoll_event ev;
+    //struct epoll_event ev;
 
     client->fd = -1;
     delete_client_from_list(client);
     add_client_to_list(fd);
-    ev.data.ptr = server->tail;
-    ev.events = EPOLLIN;
-    epoll_ctl(server->ep_opt->epfd, EPOLL_CTL_MOD, server->tail->fd, &ev);
+    //ev.data.ptr = server->tail;
+    //ev.events = EPOLLIN;
+    //epoll_ctl(server->ep_opt->epfd, EPOLL_CTL_MOD, server->tail->fd, &ev);
     client = server->tail;
     client->log = true;
     client->game.team = team;
@@ -67,41 +67,16 @@ void command_handler(client_t *client, char *cmd)
         verif_funcs(client, cmd);
 }
 
-int handle_events(struct epoll_event *ev)
-{
-    char *buff;
-
-    if (ev->data.ptr == server) {
-        printf("client connection\n");
-        accept_client_connection();
-        printf("client connected\n");
-    } else {
-        client_to_buffer(ev->data.ptr);
-        buff = extract_cmd(ev->data.ptr);
-        if (buff[0] == 0) {
-            epoll_ctl(server->ep_opt->epfd, EPOLL_CTL_DEL,
-            ((client_t *)(ev->data.ptr))->fd, NULL);
-            delete_player_from_map((client_t *)ev->data.ptr);
-            delete_client_from_list((client_t *)ev->data.ptr);
-            printf("client left :(\n");
-        }
-        else
-            command_handler(ev->data.ptr, buff);
-    }
-    return (0);
-}
-
 int run_server(void)
 {
-    int i = 0;
-    int nfds = 0;
-    struct epoll_event events[10];
+    fd_set readfds;
+    fd_set writefds;
 
     while (true) {
-        nfds = epoll_wait(server->ep_opt->epfd, events,
-            MAX_EVENTS, 50);
-        for (i = 0; i < nfds; i++)
-            handle_events(&events[i]);
+        if (monitor_socket(&readfds, &writefds) == FAILURE)
+            return (FAILURE);
+        if (accept_client_connection(readfds, writefds) == INVALID_SOCKET)
+            return (FAILURE);
         if (server->client != NULL)
             time_it(server->client);
     }

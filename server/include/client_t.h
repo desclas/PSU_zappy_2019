@@ -45,9 +45,9 @@ typedef struct client_s {
 ** FUNCTIONS TO ADD A NODE TO THE CLIENT LIST
 */
 
-int add_client_to_list(int fd);
-int add_last_client_to_list(int fd);
-int add_first_client_to_list(int fd);
+client_t *add_client_to_list(int fd);
+client_t *add_last_client_to_list(int fd);
+client_t *add_first_client_to_list(int fd);
 
 /*
 ** FUNCTIONS TO DELETE A NODE FROM THE CLIENT LIST

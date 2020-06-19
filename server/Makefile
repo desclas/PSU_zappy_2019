@@ -25,6 +25,7 @@ SRC	=	main.c						\
 		src/error/check_number.c			\
 		src/error/error_print.c				\
 		src/server_init/init_server.c			\
+		src/server_init/handle_select.c 		\
 		src/server_init/run_server.c			\
 		src/client_list/add_client_to_list.c		\
 		src/client_list/delete_client_from_list.c	\
