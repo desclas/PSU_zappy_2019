@@ -11,20 +11,18 @@ int client_activity(server_t *s, client_t *c, fd_set *readfds, int idx)
 {
     char *buff = NULL;
 
-    //for (idx = 0; idx < MAX_CLIENTS; idx++) {
-        s->sd = s->clients[idx];
-        if ((FD_ISSET(s->sd , readfds)) && (c->fd = s->sd)) {
-            s->pos_sock = idx;
-            client_to_buffer(c);
-            buff = extract_cmd(c);
-            if (buff[0] == 0) {
-                delete_player_from_map(c);
-                delete_client_from_list((c));
-                printf("client left :(\n");
+    s->sd = s->clients[idx];
+    if ((FD_ISSET(s->sd , readfds)) && (c->fd = s->sd)) {
+        s->pos_sock = idx;
+        client_to_buffer(c);
+        buff = extract_cmd(c);
+        if (buff[0] == 0) {
+            delete_player_from_map(c);
+            delete_client_from_list((c));
+            printf("client left :(\n");
         } else
             command_handler(c, buff);
-        }
-    //}
+    }
     return (SUCCESS);
 }
 

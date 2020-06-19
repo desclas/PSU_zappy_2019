@@ -11,6 +11,7 @@ static void eject_close_free(client_t *client)
 {
     if (client != NULL) {
         if (client->fd != -1) {
+            FD_CLR(client->fd, &server->readfds);
             close(client->fd);
         }
         free(client);
