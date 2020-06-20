@@ -12,7 +12,6 @@ int accept_client_connection(fd_set rfd, fd_set wfd)
     SOCKADDR_IN c_sin = {0};
     int new_csock = -1;
     socklen_t size_sin = 0;
-    int i = 0;
     client_t *c = NULL;
     if (FD_ISSET(server->host->fd, &rfd) || FD_ISSET(server->host->fd, &wfd)) {
         size_sin = sizeof(SOCKADDR_IN);
@@ -25,9 +24,10 @@ int accept_client_connection(fd_set rfd, fd_set wfd)
         c = add_client_to_list(new_csock);
         if (c == NULL)
             return (-1);
+    } else {
+        for (int i = 0; i < MAX_CLIENTS; i++)
+            client_activity(server, server->client, &rfd, i);
     }
-    for (i = 0; i < MAX_CLIENTS; i++)
-        client_activity(server, server->client, &rfd, i);
     return (SUCCESS);
 }
 
