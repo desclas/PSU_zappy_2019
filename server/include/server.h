@@ -63,11 +63,10 @@ typedef struct server_s {
     map_t ***map;
     host_t *host;
     struct timeval timeout;
-    int clients[MAX_CLIENTS];
-	int sd;
-	int pos_sock;
+    int sd;
+    int pos_sock;
     fd_set readfds;
-	fd_set writefds;
+    fd_set writefds;
 } server_t;
 
 extern server_t *server;
@@ -86,15 +85,15 @@ int error_print_error(char *, int);
 */
 
 int init_server(int ac, char **av);
-int client_activity(server_t *s, client_t *c, fd_set *readfds, int idx);
-int manage_client_socket_list(fd_set *rfds, fd_set *wfds, int max_sd, int sd);
-int  monitor_socket(fd_set *readfds, fd_set *writefds);
+int client_activity(client_t *c, fd_set *readfds);
+int manage_client_socket_list(fd_set *rfds, int max_sd, int sd);
+int  monitor_socket(fd_set *readfds);
 void add_socket_to_client_list(SOCKET new_csock);
 int run_server(void);
 void log_egg(client_t *, char *);
 void put_name(client_t *, char *);
 void command_handler(client_t *, char *);
-int accept_client_connection(fd_set readfds, fd_set writefds);
+int accept_client_connection(fd_set readfds);
 bool team_valid(char *);
 bool check_connectable(client_t *, char *);
 bool egg_connecable(client_t *, char *);
