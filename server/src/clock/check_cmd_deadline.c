@@ -28,6 +28,9 @@ void get_timeout(void)
         if (ctmp != NULL && ctmp->init)
             time = (((current_time - ctmp->started_time) < time) ?
                 (current_time - ctmp->started_time) : time);
+        if (tmp->eat != -1)
+            time = ((current_time - tmp->eat) < time) ?
+                (current_time - tmp->eat) : time;
     }
     server->timeout.tv_usec = ((time == __INT32_MAX__) ? 0 : time);
 }

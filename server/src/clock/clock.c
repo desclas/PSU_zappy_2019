@@ -30,11 +30,13 @@ static void check_client_dead(client_t **client)
 */
 void is_alive(client_t *client)
 {
+    double current = get_day_time_in_microseconds();
+
     for (; client->prev != NULL; client = client->prev);
     for (; client != NULL; client = client->next) {
-        if (client->eat != -1 && client->eat > (clock() / CLOCKS_PER_SEC)) {
-            client->eat = (((float)(126)) / server->input->freq) +
-                (clock() / CLOCKS_PER_SEC);
+        if (client->eat != -1 && current - client->eat >=
+                (((float)160) / server->input->freq) * 1000000) {
+            client->eat = current;
             client->game.inv[FOOD]--;
             check_client_dead(&client);
         }

@@ -75,8 +75,10 @@ int run_server(void)
             return (FAILURE);
         if (accept_client_connection(readfds, writefds) == INVALID_SOCKET)
             return (FAILURE);
-        if (server->client != NULL)
+        if (server->client != NULL) {
             time_it(server->client);
+            is_alive(server->client);
+        }
         get_timeout();
     }
     return (0);

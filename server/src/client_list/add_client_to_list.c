@@ -21,8 +21,8 @@ client_t *add_first_client_to_list(int fd)
         return (NULL);
     elem->fd = fd;
     elem->game.lvl = 1;
-    elem->next = NULL;
-    elem->prev = NULL;
+    elem->game.inv[FOOD] = 10;
+    elem->eat = -1;
     server->client = elem;
     server->tail = elem;
     return (elem);
@@ -43,7 +43,8 @@ client_t *add_last_client_to_list(int fd)
         return (NULL);
     elem->fd = fd;
     elem->game.lvl = 1;
-    elem->next = NULL;
+    elem->game.inv[FOOD] = 10;
+    elem->eat = -1;
     server->tail = elem;
     for (tmp = server->client; tmp->next != NULL; tmp = tmp->next);
     tmp->next = elem;

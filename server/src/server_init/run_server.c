@@ -99,8 +99,7 @@ void log_client(client_t *client, char *team)
 {
     client->log = true;
     client->game.team = team;
-    client->eat = (((float)(126)) / server->input->freq) +
-        (clock() / CLOCKS_PER_SEC);
+    client->eat = get_day_time_in_microseconds();
     connect_nbr(client, team);
     dprintf(client->fd, "%d %d\n", server->input->width,
         server->input->height);
