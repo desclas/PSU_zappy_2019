@@ -16,7 +16,7 @@
 */
 int is_cmd_left(client_t *client, char *cmd)
 {
-    if (strcasecmp(cmd, "Left") == 0) {
+    if (strcmp(cmd, "Left") == 0) {
         add_cmd_to_list(client, cmd, turn_left, 7);
         return (0);
     }
@@ -32,7 +32,7 @@ int is_cmd_left(client_t *client, char *cmd)
 */
 int is_cmd_right(client_t *client, char *cmd)
 {
-    if (strcasecmp(cmd, "Right") == 0) {
+    if (strcmp(cmd, "Right") == 0) {
         add_cmd_to_list(client, cmd, turn_right, 7);
         return (0);
     }
@@ -41,7 +41,7 @@ int is_cmd_right(client_t *client, char *cmd)
 
 int is_cmd_forward(client_t *client, char *cmd)
 {
-    if (strcasecmp(cmd, "Forward") == 0) {
+    if (strcmp(cmd, "Forward") == 0) {
         add_cmd_to_list(client, cmd, go_forward, 7);
         return (0);
     }

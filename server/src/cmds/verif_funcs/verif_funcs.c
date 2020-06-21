@@ -24,7 +24,7 @@ int is_cmd_broadcast(client_t *client, char *cmd)
 {
     char **tab = split(cmd, " ");
 
-    if (tab[0] != NULL && strcasecmp(tab[0], "Broadcast") == 0) {
+    if (tab[0] != NULL && strcmp(tab[0], "Broadcast") == 0) {
         add_cmd_to_list(client, cmd, broadcast, 7);
         return (0);
     }
@@ -35,7 +35,7 @@ int is_cmd_take_object(client_t *client, char *cmd)
 {
     char **tab = split(cmd, " ");
 
-    if (tab[0] != NULL && strcasecmp(tab[0], "Take") == 0) {
+    if (tab[0] != NULL && strcmp(tab[0], "Take") == 0) {
         add_cmd_to_list(client, cmd, take_object, 7);
         return (0);
     }
@@ -44,7 +44,7 @@ int is_cmd_take_object(client_t *client, char *cmd)
 
 int is_cmd_look(client_t *client, char *cmd)
 {
-    if (strcasecmp(cmd, "Look") == 0) {
+    if (strcmp(cmd, "Look") == 0) {
         add_cmd_to_list(client, cmd, look, 7);
         return (0);
     }

@@ -9,7 +9,7 @@
 
 int is_cmd_inventory(client_t *client, char *cmd)
 {
-    if (strcasecmp(cmd, "Inventory") == 0) {
+    if (strcmp(cmd, "Inventory") == 0) {
         add_cmd_to_list(client, cmd, inventory, 1);
         return (0);
     }
