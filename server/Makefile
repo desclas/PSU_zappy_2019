@@ -1,5 +1,5 @@
 ##
-## EPITECH PROJECT, 2018
+## EPITECH PROJECT, 2019
 ## Makefile
 ## File description:
 ## Makefile
@@ -64,7 +64,7 @@ OBJ	=	$(SRC:.c=.o)
 
 NAME	=	../zappy_server
 
-DEBUG =
+DEBUG = yes
 
 ifeq ($(DEBUG), yes)
 	CFLAGS	+=	-W -Wall -Werror -Wextra -Iinclude -g -g3 -lm
