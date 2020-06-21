@@ -68,12 +68,11 @@ void command_handler(client_t *client, char *cmd)
 int run_server(void)
 {
     fd_set readfds;
-    fd_set writefds;
 
     while (true) {
-        if (monitor_socket(&readfds, &writefds) == FAILURE)
+        if (monitor_socket(&readfds) == FAILURE)
             return (FAILURE);
-        if (accept_client_connection(readfds, writefds) == INVALID_SOCKET)
+        if (accept_client_connection(readfds) == INVALID_SOCKET)
             return (FAILURE);
         if (server->client != NULL)
             time_it(server->client);

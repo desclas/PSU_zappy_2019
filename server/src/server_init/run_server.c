@@ -7,7 +7,7 @@
 
 #include "server.h"
 
-int accept_client_connection(fd_set rfd, UNUSED fd_set wfd)
+int accept_client_connection(fd_set rfd)
 {
     SOCKADDR_IN c_sin = {0};
     int new_csock = -1;
@@ -19,11 +19,10 @@ int accept_client_connection(fd_set rfd, UNUSED fd_set wfd)
             perror("accept() fail");
             return (INVALID_SOCKET);
         }
-        add_socket_to_client_list(new_csock);
         add_client_to_list(new_csock);
     } else {
-        for (int i = 0; i < MAX_CLIENTS; i++)
-            client_activity(server, server->client, &rfd, i);
+        for (client_t *tmp = server->client; tmp; tmp = tmp->next)
+            client_activity(tmp, &rfd);
     }
     return (SUCCESS);
 }

@@ -7,24 +7,11 @@
 
 #include "server.h"
 
-client_t *find_good_client(client_t *c, const int client_fd)
-{
-    while (c) {
-        if (c->fd == client_fd)
-            return (c);
-        c = c->next;
-    }
-    return (NULL);
-}
-
-int client_activity(server_t *s, client_t *c, fd_set *readfds, int idx)
+int client_activity(client_t *c, fd_set *readfds)
 {
     char *buff = NULL;
 
-    s->sd = s->clients[idx];
-    if ((FD_ISSET(s->sd , readfds))) {
-        s->pos_sock = idx;
-        c = find_good_client(c, s->sd);
+    if ((FD_ISSET(c->fd , readfds))) {
         client_to_buffer(c);
         buff = extract_cmd(c);
         if (buff[0] == 0) {
@@ -40,14 +27,13 @@ int client_activity(server_t *s, client_t *c, fd_set *readfds, int idx)
     return (FAILURE);
 }
 
-int manage_client_socket_list(fd_set *rfds, fd_set *wfds, int max_sd, int sd)
+int manage_client_socket_list(fd_set *rfds, int max_sd, int sd)
 {
-	wfds += 0;
     FD_ZERO(rfds);
     FD_SET(server->host->fd, (rfds));
     max_sd = server->host->fd;
-    for (int i = 0; i < MAX_CLIENTS; i++) {
-        sd = server->clients[i];
+    for (client_t *tmp = server->client; tmp; tmp = tmp->next) {
+        sd = tmp->fd;
         server->sd = sd;
         if (sd > 0)
             FD_SET(sd, rfds);
@@ -57,28 +43,17 @@ int manage_client_socket_list(fd_set *rfds, fd_set *wfds, int max_sd, int sd)
     return (max_sd);
 }
 
-int  monitor_socket(fd_set *readfds, fd_set *writefds)
+int  monitor_socket(fd_set *readfds)
 {
     int activity = 0;
     int sd = 0;
     int max_sd = 0;
 
-    max_sd = manage_client_socket_list(readfds, writefds, max_sd, sd);
+    max_sd = manage_client_socket_list(readfds, max_sd, sd);
     activity = select(max_sd + 1 , readfds , NULL, NULL , NULL);
     if ((activity < 0) && (errno != EINTR)) {
         perror("select() fail");
         return (FAILURE);
     }
     return (SUCCESS);
-}
-
-void add_socket_to_client_list(SOCKET new_csock)
-{
-    for (int i = 0; i < MAX_CLIENTS; i++) {
-        if (server->clients[i] == 0) {
-            server->clients[i] = new_csock;
-            break;
-        }
-    }
-    return;
 }
