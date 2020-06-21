@@ -8,7 +8,7 @@
 #include "server.h"
 
 server_t *server = NULL;
-const verif_f verif_func[10] = {is_cmd_left,
+const verif_f verif_func[11] = {is_cmd_left,
                     is_cmd_right,
                     is_cmd_broadcast,
                     is_cmd_look,
@@ -16,6 +16,7 @@ const verif_f verif_func[10] = {is_cmd_left,
                     is_cmd_set_object,
                     is_cmd_forward,
                     is_cmd_inventory,
+                    is_cmd_incantation,
                     is_cmd_connect_nbr,
                     is_cmd_false};
 

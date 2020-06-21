@@ -8,10 +8,9 @@
 SRC	=	lib/connection.c	\
 		lib/check_acess.c	\
 		lib/destruct.c		\
-		lib/read.c		\
-		lib/write.c		\
-		lib/wait.c		\
-		lib/epoll_st.c
+		lib/read.c			\
+		lib/write.c			\
+		lib/wait.c
 
 OBJ	=	$(SRC:.c=.o)
 

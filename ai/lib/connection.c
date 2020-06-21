@@ -16,14 +16,10 @@
 static client_t *init_client_sets(int fd)
 {
     client_t *cli = calloc(1, sizeof(*cli));
-    fd_set readfds;
-    fd_set writefds;
 
     if (cli == NULL)
         exit(FAILURE);
     cli->fd = fd;
-    cli->rfds = readfds;
-    cli->wfds = writefds;
     FD_ZERO(&cli->rfds);
     FD_ZERO(&cli->wfds);
     FD_SET(cli->fd, &cli->rfds);

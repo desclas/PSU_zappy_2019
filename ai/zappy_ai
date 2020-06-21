@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from ctypes import *
+from inspect import currentframe, getframeinfo
 import random
 import argparse
 import time
@@ -20,9 +21,9 @@ def have_path(index):
 	string = string + ("Forward," * y)
 	index -= x
 	if index < 0:
-		string = string + "Left," + ("Forward," * abs(index))
+		string = string + "Left,",  ("Forward," * abs(index))
 	elif index > 0:
-		string = string + "Right," + ("Forward," * index)
+		string = string + "Right,",  ("Forward," * index)
 	return string
 
 def get_inventory(invv):
@@ -38,16 +39,15 @@ def get_inventory(invv):
 
 def inventory():
 	exec(sleep)
-	index = srvlib.epoll_wait_it(srv)
-	if index is 0:
-		exit(84)
-	if srvlib.epoll_write(srv, b"Inventory") is 0:
+	index = srvlib.process_select(srv)
+	if srvlib.write_on_client(srv, b"Inventory") is 0:
+		print("exit 84 on ",  getframeinfo(currentframe()).lineno)
 		exit(84)
 	exec(sleep)
-	index = srvlib.epoll_wait_it(srv)
+	index = srvlib.process_select(srv)
 	sk = ""
 	while True:
-		string = srvlib.epoll_read(srv)
+		string = srvlib.read_on_client(srv)
 		sk += string.decode("utf-8")
 		if "dead" in sk:
 			exit(0)
@@ -64,15 +64,14 @@ def take_all(sf):
 	for x in sf:
 		if "player" not in x:
 			exec(sleep)
-			index = srvlib.epoll_wait_it(srv)
-			if index is 0:
-				exit(84)
+			index = srvlib.process_select(srv)
 			ft = "Take " + x
-			if srvlib.epoll_write(srv, ft.encode("utf-8")) is 0:
+			if srvlib.write_on_client(srv, ft.encode("utf-8")) is 0:
+				print("exit 84 on ",  getframeinfo(currentframe()).lineno)
 				exit(84)
 			exec(sleep)
-			index = srvlib.epoll_wait_it(srv)
-			string = srvlib.epoll_read(srv)
+			index = srvlib.process_select(srv)
+			string = srvlib.read_on_client(srv)
 			if "dead" in string.decode("utf-8"):
 				exit(0)
 			if "ok" in string.decode("utf-8"):
@@ -82,8 +81,8 @@ def get_index(st, what):
 	st = st.replace("[ ","")
 	st = st.replace(" ]","")
 	st = st.split(",")
-	last = 0;
-	index = -1;
+	last = 0
+	index = -1
 	for x in range(0, len(st)):
 		count = 0
 		if st[x] is not '':
@@ -103,29 +102,27 @@ def go_to_path(path):
 			path.remove(x)
 	for x in path:
 		exec(sleep)
-		index = srvlib.epoll_wait_it(srv)
-		if index is 0:
-			exit(84)
-		if srvlib.epoll_write(srv, x.encode("utf-8")) is 0:
+		index = srvlib.process_select(srv)
+		if srvlib.write_on_client(srv, x.encode("utf-8")) is 0:
+			print("exit 84 on ",  getframeinfo(currentframe()).lineno)
 			exit(84)
 		exec(sleep)
-		index = srvlib.epoll_wait_it(srv)
-		string = srvlib.epoll_read(srv)
+		index = srvlib.process_select(srv)
+		string = srvlib.read_on_client(srv)
 		if "dead" in string.decode("utf-8"):
 			exit(0)
 
 def take_it():
 	exec(sleep)
-	index = srvlib.epoll_wait_it(srv)
-	if index is 0:
-		exit(84)
-	if srvlib.epoll_write(srv, b"Look") is 0:
+	index = srvlib.process_select(srv)
+	if srvlib.write_on_client(srv, b"Look") is 0:
+		print("exit 84 on ",  getframeinfo(currentframe()).lineno)
 		exit(84)
 	exec(sleep)
-	index = srvlib.epoll_wait_it(srv)
+	index = srvlib.process_select(srv)
 	sk = ""
 	while True:
-		string = srvlib.epoll_read(srv)
+		string = srvlib.read_on_client(srv)
 		sk += string.decode("utf-8")
 		if "dead" in sk:
 			exit(0)
@@ -143,16 +140,15 @@ def take_it():
 
 def search_something(something):
 	exec(sleep)
-	index = srvlib.epoll_wait_it(srv)
-	if index is 0:
-		exit(84)
-	if srvlib.epoll_write(srv, b"Look") is 0:
+	index = srvlib.process_select(srv)
+	if srvlib.write_on_client(srv, b"Look") is 0:
+		print("exit 84 on ",  getframeinfo(currentframe()).lineno)
 		exit(84)
 	exec(sleep)
-	index = srvlib.epoll_wait_it(srv)
+	index = srvlib.process_select(srv)
 	sk = ""
 	while True:
-		string = srvlib.epoll_read(srv)
+		string = srvlib.read_on_client(srv)
 		sk += string.decode("utf-8")
 		if "dead" in sk:
 			exit(0)
@@ -187,30 +183,28 @@ def what_need():
 
 def incant():
 	exec(sleep)
-	index = srvlib.epoll_wait_it(srv)
-	if index is 0:
-		exit(84)
-	if srvlib.epoll_write(srv, b"Incantation") is 0:
+	index = srvlib.process_select(srv)
+	if srvlib.write_on_client(srv, b"Incantation") is 0:
+		print("exit 84 on ",  getframeinfo(currentframe()).lineno)
 		exit(84)
 	exec(sleep)
-	index = srvlib.epoll_wait_it(srv)
-	string = srvlib.epoll_read(srv)
+	index = srvlib.process_select(srv)
+	string = srvlib.read_on_client(srv)
 	if "dead" in string.decode("utf-8"):
 		exit(0)
 	if "level" in string.decode("utf-8"):
 		lvl += 1
 	elif "ko" in string.decode("utf-8"):
 		exec(sleep)
-		index = srvlib.epoll_wait_it(srv)
-		if index is 0:
-			exit(84)
-		if srvlib.epoll_write(srv, b"Look") is 0:
+		index = srvlib.process_select(srv)
+		if srvlib.write_on_client(srv, b"Look") is 0:
+			print("exit 84 on ",  getframeinfo(currentframe()).lineno)
 			exit(84)
 		exec(sleep)
-		index = srvlib.epoll_wait_it(srv)
+		index = srvlib.process_select(srv)
 		sk = ""
 		while True:
-			string = srvlib.epoll_read(srv)
+			string = srvlib.read_on_client(srv)
 			sk += string.decode("utf-8")
 			if "dead" in sk:
 				exit(0)
@@ -219,7 +213,7 @@ def incant():
 	else:
 		sk = ""
 		while True:
-			string = srvlib.epoll_read(srv)
+			string = srvlib.read_on_client(srv)
 			sk += string.decode("utf-8")
 			if "dead" in sk:
 				exit(0)
@@ -246,21 +240,15 @@ pars.add_argument("-h", type=str, default="localhost", help="is the name of the 
 ag = pars.parse_args()
 srvlib = CDLL("./ai/lib/libzappy.so")
 srv = srvlib.connection_to_server(c_int(ag.p))
-index = srvlib.epoll_wait_it(srv)
-srvlib.epoll_write.argtypes = [c_void_p, c_char_p]
-srvlib.epoll_read.restype = c_char_p
+index = srvlib.process_select(srv)
+srvlib.write_on_client.argtypes = [c_void_p, c_char_p]
+srvlib.read_on_client.restype = c_char_p
 string = c_char_p
 lvl = 1
-con = False
-if srvlib.check_acess(c_int(index), srv, srvlib.get_epoll_st(c_bool(False))) is 1:
-	srvlib.epoll_write(srv, c_char_p(ag.n.encode("utf-8")))
-	exec(sleep)
-	index = srvlib.epoll_wait_it(srv)
-	if srvlib.check_acess(c_int(index), srv, srvlib.get_epoll_st(c_bool(True))) is 1:
-		string = srvlib.epoll_read(srv)
-		con = True
-if con is False:
-	exit(84)
+srvlib.write_on_client(srv, c_char_p(ag.n.encode("utf-8")))
+exec(sleep)
+index = srvlib.process_select(srv)
+string = srvlib.read_on_client(srv)
 inc = [ { "player":"1", "linemate":"1", "deraumere":"0", "sibur":"0", "mendiane":"0", "phiras":"0", "thystame":"0" },
 	{ "player":"2", "linemate":"1", "deraumere":"1", "sibur":"1", "mendiane":"0", "phiras":"0", "thystame":"0" },
 	{ "player":"2", "linemate":"2", "deraumere":"0", "sibur":"1", "mendiane":"0", "phiras":"2", "thystame":"0" },

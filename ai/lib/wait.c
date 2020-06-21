@@ -16,8 +16,9 @@
 int process_select(client_t *client)
 {
     int activity = 0;
+    struct timeval tv = {0, 100};
 
-    activity = select(client->fd, &client->rfds, &client->wfds, NULL, NULL);
+    activity = select(client->fd, &client->rfds, &client->wfds, NULL, &tv);
     if (activity < 0 && (errno != EINTR)) {
         perror("select() fail");
         return (FAILURE);

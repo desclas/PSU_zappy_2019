@@ -31,7 +31,7 @@ typedef struct {
     fd_set wfds;
 }client_t;
 
-bool check_activity(client_t *client, fd_set *set_to_check);
+bool check_activity(client_t *client);
 client_t *connection_to_server(int port);
 void destruct(client_t *client);
 char *read_on_client(client_t *client);

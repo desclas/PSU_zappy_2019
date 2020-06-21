@@ -38,6 +38,7 @@ SRC	=	main.c										\
 		src/cmds/movement_cmds.c					\
 		src/cmds/false_cmd.c						\
 		src/cmds/connect_nbr.c						\
+		src/cmds/incantation.c						\
 		src/cmds/cmd_list/add_cmd_to_list.c			\
 		src/cmds/cmd_list/delete_cmd_from_list.c	\
 		src/cmds/broadcast/broadcast.c				\

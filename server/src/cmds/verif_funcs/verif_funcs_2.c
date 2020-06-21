@@ -30,7 +30,16 @@ int is_cmd_set_object(client_t *client, char *cmd)
 int is_cmd_connect_nbr(client_t *client, char *cmd)
 {
     if (strcmp(cmd, "Connect_nbr") == 0) {
-        add_cmd_to_list(client, cmd, connect_nbr, 1);
+        add_cmd_to_list(client, cmd, connect_nbr, 0);
+        return (0);
+    }
+    return (-1);
+}
+
+int is_cmd_incantation(client_t *client, char *cmd)
+{
+    if (strcmp(cmd, "Incantation") == 0) {
+        add_cmd_to_list(client, cmd, incantation, 300);
         return (0);
     }
     return (-1);
