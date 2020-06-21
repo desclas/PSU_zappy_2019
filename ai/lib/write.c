@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2018
+** EPITECH PROJECT, 2019
 ** zappy
 ** File description:
 ** write epoll
@@ -11,14 +11,13 @@
 ** @brief writing to server
 **
 ** @param client just a storage
-** @param index index of event
 ** @param str what to write
 ** @return int res of write
 */
-int epoll_write(client_t *client, char *str)
+int write_on_client(client_t *client, char *str)
 {
-	int res;
+    int res;
 
-	res = dprintf(client->fd, "%s\n", str);
-	return (res);
+    res = dprintf(client->fd, "%s\n", str);
+    return (res);
 }

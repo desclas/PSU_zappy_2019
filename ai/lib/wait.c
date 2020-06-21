@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2018
+** EPITECH PROJECT, 2019
 ** zappy
 ** File description:
 ** epoll_wait_it
@@ -8,12 +8,19 @@
 #include "AI.h"
 
 /*!
-** @brief epoll_wait func
+** @brief process_select func
 **
 ** @param client just a storage
-** @return int result of epoll_wait
+** @return int SUCCESS or FAILURE
 */
-int epoll_wait_it(client_t *client)
+int process_select(client_t *client)
 {
-	return (epoll_wait(client->epfd, client->event, 2, 50));
+    int activity = 0;
+
+    activity = select(client->fd, &client->rfds, &client->wfds, NULL, NULL);
+    if (activity < 0 && (errno != EINTR)) {
+        perror("select() fail");
+        return (FAILURE);
+    }
+    return (SUCCESS);
 }

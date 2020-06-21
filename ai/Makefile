@@ -1,5 +1,5 @@
 ##
-## EPITECH PROJECT, 2018
+## EPITECH PROJECT, 2019
 ## zappy
 ## File description:
 ## Makefile
@@ -33,3 +33,5 @@ fclean: clean
 	rm -f ../zappy_ai
 
 re: fclean all
+
+.phony:	all clean fclean re

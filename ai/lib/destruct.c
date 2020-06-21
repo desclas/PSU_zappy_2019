@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2018
+** EPITECH PROJECT, 2019
 ** zappy
 ** File description:
 ** destruction of struct
@@ -14,8 +14,9 @@
 */
 void destruct(client_t *client)
 {
-	close(client->fd);
-	close(client->epfd);
-	free(client->event);
-	free(client);
+    close(client->fd);
+    FD_CLR(client->fd, &client->rfds);
+    FD_CLR(client->fd, &client->wfds);
+    free(client);
+    return ;
 }

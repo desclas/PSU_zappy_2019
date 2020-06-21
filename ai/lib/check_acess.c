@@ -1,25 +1,23 @@
 /*
-** EPITECH PROJECT, 2018
+** EPITECH PROJECT, 2019
 ** zappy
 ** File description:
-** testing acess
+** testing access
 */
 
 #include "AI.h"
 
 /*!
-** @brief check acess on epoll event
+** @brief check sets read or write
 **
-** @param index index of event
 ** @param client
-** @param check state must be checked
+** @param set_to_check fdset to check
 ** @return true
 ** @return false
 */
-bool check_acess(size_t index, client_t *client, uint32_t check)
+bool check_activity(client_t *client, fd_set *set_to_check)
 {
-	if (index > 0)
-		if (client->event[index - 1].events & check)
-			return (true);
-	return (false);
+    if (FD_ISSET(client->fd, set_to_check))
+        return (true);
+    return (false);
 }
