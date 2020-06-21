@@ -100,8 +100,7 @@ bool team_valid(char *);
 bool check_connectable(client_t *, char *);
 bool egg_connecable(client_t *, char *);
 void log_client(client_t *, char *);
-
-client_t *find_request_client(client_t *c, const int client_fd);
+client_t *find_good_client(client_t *c, const int client_fd);
 
 /*
 ** CIRCULAR BUFFER FUNCTIONS

@@ -7,7 +7,7 @@
 
 #include "server.h"
 
-client_t *find_request_client(client_t *c, const int client_fd)
+client_t *find_good_client(client_t *c, const int client_fd)
 {
     while (c) {
         if (c->fd == client_fd)
@@ -24,7 +24,7 @@ int client_activity(server_t *s, client_t *c, fd_set *readfds, int idx)
     s->sd = s->clients[idx];
     if ((FD_ISSET(s->sd , readfds))) {
         s->pos_sock = idx;
-        c = find_request_client(c, s->sd);
+        c = find_good_client(c, s->sd);
         client_to_buffer(c);
         buff = extract_cmd(c);
         if (buff[0] == 0) {
