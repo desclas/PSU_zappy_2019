@@ -77,6 +77,7 @@ int run_server(void)
             return (FAILURE);
         if (server->client != NULL)
             time_it(server->client);
+        get_timeout();
     }
     return (0);
 }

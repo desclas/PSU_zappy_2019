@@ -33,7 +33,6 @@
 #include "input.h"
 #include "client_t.h"
 #include "host_t.h"
-#include "epoll_opt_t.h"
 #include "commands.h"
 
 #define SUCCESS 0
@@ -63,6 +62,7 @@ typedef struct server_s {
     client_t *tail;
     map_t ***map;
     host_t *host;
+    struct timeval timeout;
     int clients[MAX_CLIENTS];
 	int sd;
 	int pos_sock;
@@ -94,7 +94,6 @@ int run_server(void);
 void log_egg(client_t *, char *);
 void put_name(client_t *, char *);
 void command_handler(client_t *, char *);
-int handle_events(struct epoll_event *);
 int accept_client_connection(fd_set readfds, fd_set writefds);
 bool team_valid(char *);
 bool check_connectable(client_t *, char *);

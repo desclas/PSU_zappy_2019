@@ -7,7 +7,7 @@
 
 #include "server.h"
 
-int accept_client_connection(fd_set rfd, fd_set wfd)
+int accept_client_connection(fd_set rfd, UNUSED fd_set wfd)
 {
     SOCKADDR_IN c_sin = {0};
     int new_csock = -1;

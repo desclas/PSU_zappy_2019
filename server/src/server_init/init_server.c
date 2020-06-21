@@ -40,28 +40,6 @@ int init_host_options(host_t **host)
 }
 
 /*!
-** @brief init epoll struct
-**
-** @return epoll_opt_t* epoll struct
-*/
-epoll_opt_t *init_epoll_options(void)
-{
-    epoll_opt_t *ep_opt = calloc(1, sizeof(epoll_opt_t));
-
-    if (ep_opt == NULL)
-        return (NULL);
-    ep_opt->events = calloc(MAX_EVENTS, sizeof(struct epoll_event));
-    if (ep_opt->events == NULL)
-        return (NULL);
-    ep_opt->ev.events = EPOLLIN | EPOLLOUT;
-    ep_opt->ev.data.ptr = server;
-    ep_opt->epfd = epoll_create1(0);
-    epoll_ctl(ep_opt->epfd, EPOLL_CTL_ADD, server->host->fd,
-        &ep_opt->ev);
-    return (ep_opt);
-}
-
-/*!
 ** @brief init server
 **
 ** @param ac size of arguments
