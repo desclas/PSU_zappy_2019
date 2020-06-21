@@ -15,3 +15,14 @@ int is_cmd_inventory(client_t *client, char *cmd)
     }
     return (-1);
 }
+
+int is_cmd_set_object(client_t *client, char *cmd)
+{
+    char **tab = split(cmd, " ");
+
+    if (tab[0] != NULL && strcmp(tab[0], "Take") == 0) {
+        add_cmd_to_list(client, cmd, take_object, 7);
+        return (0);
+    }
+    return (-1);
+}

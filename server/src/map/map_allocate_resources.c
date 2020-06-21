@@ -30,7 +30,7 @@ int map_initialize_resources(resources_t *resources)
 
     while (i < 7) {
         resources[i].name = strdup(resource[i]);
-        resources[i].number = map_randomize_resource(5, 20);
+        resources[i].number = map_randomize_resource(0, 2);
         i++;
     }
     return (0);

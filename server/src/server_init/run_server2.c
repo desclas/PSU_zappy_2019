@@ -79,6 +79,7 @@ int run_server(void)
             is_alive(server->client);
         }
         get_timeout();
+        map_randomize_map(server->map);
     }
     return (0);
 }

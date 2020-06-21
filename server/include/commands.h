@@ -11,7 +11,7 @@
 typedef void (*commands_f)(client_t *client, char *cmd);
 typedef int (*verif_f)(client_t *, char *);
 
-const verif_f verif_func[8];
+const verif_f verif_func[9];
 
 /*
 ** STRUCTURE COMMAND
@@ -62,6 +62,7 @@ void connect_nbr(client_t *client, char *cmd);
 void broadcast(client_t *client, char *cmd);
 void look(client_t *client, char *cmd);
 void take_object(client_t *client, char *cmd);
+void set_object(client_t *cli, char *cmd);
 void false_cmd(client_t *client, char *cmd);
 void incantation(client_t *client, char *cmd);
 void inventory(client_t *client, char *cmd);
@@ -77,6 +78,7 @@ int is_cmd_right(client_t *client, char *cmd);
 int is_cmd_broadcast(client_t *client, char *cmd);
 int is_cmd_look(client_t *client, char *cmd);
 int is_cmd_take_object(client_t *client, char *cmd);
+int is_cmd_set_object(client_t *client, char *cmd);
 int is_cmd_forward(client_t *client, char *cmd);
 int is_cmd_incantation(client_t *client, char *cmd);
 int is_cmd_inventory(client_t *client, char *cmd);

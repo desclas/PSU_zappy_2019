@@ -46,6 +46,7 @@ void map_destroy_resources(resources_t *);
 void tile_add_resource(int, int, map_t *);
 void tile_del_resource(int, int, map_t *);
 int map_randomize_resource(int, int);
+void map_randomize_map(map_t ***);
 
 /*
 ** MANAGE PLAYERS ON MAP

@@ -18,7 +18,7 @@ void set_object(client_t *cli, char *cmd)
     size_t i;
 
     for (i = 0; i != 7; i++)
-        if (strncmp(g_items[i], cmd + 5, strlen(g_items[i])) == 0)
+        if (strncmp(g_items[i], cmd + 4, strlen(g_items[i])) == 0)
             break;
     if (i != 7) {
         if (cli->game.inv[i] > 0) {

@@ -62,7 +62,7 @@ void verif_funcs(client_t *client, char *cmd)
     int i = 0;
     int res = -1;
 
-    for (; i < 8; i++) {
+    for (; i < 9; i++) {
         res = verif_func[i](client, cmd);
         if (res == 0)
             break;
