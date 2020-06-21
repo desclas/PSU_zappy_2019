@@ -16,25 +16,23 @@
 void log_egg(client_t *client, char *team)
 {
     int fd = client->fd;
-    //struct epoll_event ev;
 
     client->fd = -1;
     delete_client_from_list(client);
     add_client_to_list(fd);
-    //ev.data.ptr = server->tail;
-    //ev.events = EPOLLIN;
-    //epoll_ctl(server->ep_opt->epfd, EPOLL_CTL_MOD, server->tail->fd, &ev);
-    client = server->tail;
-    client->log = true;
-    client->game.team = team;
-    if (client->cmd_list == NULL)
-        client->eat = (((float)(126)) / server->input->freq) +
-            (clock() / CLOCKS_PER_SEC);
-    else
-        client->eat = -1;
-    connect_nbr(client, team);
-    dprintf(client->fd, "%d %d\n", server->input->width,
-        server->input->height);
+    if (FD_ISSET(fd, &server->readfds)) {
+        client = server->tail;
+        client->log = true;
+        client->game.team = team;
+        if (client->cmd_list == NULL)
+            client->eat = (((float)(126)) / server->input->freq) +
+                (clock() / CLOCKS_PER_SEC);
+        else
+            client->eat = -1;
+        connect_nbr(client, team);
+        dprintf(client->fd, "%d %d\n", server->input->width,
+            server->input->height);
+    }
 }
 
 /*!
