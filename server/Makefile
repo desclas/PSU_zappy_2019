@@ -64,7 +64,7 @@ OBJ	=	$(SRC:.c=.o)
 
 NAME	=	../zappy_server
 
-DEBUG = yes
+DEBUG =
 
 ifeq ($(DEBUG), yes)
 	CFLAGS	+=	-W -Wall -Werror -Wextra -Iinclude -g -g3 -lm
