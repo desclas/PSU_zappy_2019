@@ -33,7 +33,7 @@ typedef struct client_s {
     int j;
     bool log;
     bool status;
-    float eat;
+    double eat;
     game_t game;
     enum player_direction direction;
     void *cmd_list;

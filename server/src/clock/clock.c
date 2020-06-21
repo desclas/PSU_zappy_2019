@@ -34,8 +34,7 @@ void is_alive(client_t *client)
 
     for (; client->prev != NULL; client = client->prev);
     for (; client != NULL; client = client->next) {
-        if (client->eat != -1 && current - client->eat >=
-                (((float)160) / server->input->freq) * 1000000) {
+        if (client->eat != -1 && current - client->eat >= FOOD_FREQ) {
             client->eat = current;
             client->game.inv[FOOD]--;
             check_client_dead(&client);

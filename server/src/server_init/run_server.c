@@ -19,6 +19,7 @@ int accept_client_connection(fd_set rfd)
             perror("accept() fail");
             return (INVALID_SOCKET);
         }
+        dprintf(new_csock, "WELCOME\n");
         add_client_to_list(new_csock);
     } else {
         for (client_t *tmp = server->client; tmp; tmp = tmp->next)

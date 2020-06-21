@@ -9,7 +9,7 @@
 
 void turn_left(client_t *client, char *cmd)
 {
-    if (strcasecmp(cmd, "Left") == 0) {
+    if (strcmp(cmd, "Left") == 0) {
         client->direction = (client->direction - 1 + 4) % 4;
         dprintf(client->fd, "ok\n");
     }
@@ -17,7 +17,7 @@ void turn_left(client_t *client, char *cmd)
 
 void turn_right(client_t *client, char *cmd)
 {
-    if (strcasecmp(cmd, "Right") == 0) {
+    if (strcmp(cmd, "Right") == 0) {
         client->direction = (client->direction + 1 + 4) % 4;
         dprintf(client->fd, "ok\n");
     }

@@ -2,3 +2,4 @@
 **/*.so
 **/zappy_server
 zappy_ai
+log*

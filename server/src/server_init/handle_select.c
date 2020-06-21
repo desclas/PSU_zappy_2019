@@ -50,7 +50,9 @@ int  monitor_socket(fd_set *readfds)
     int max_sd = 0;
 
     max_sd = manage_client_socket_list(readfds, max_sd, sd);
-    activity = select(max_sd + 1 , readfds , NULL, NULL , NULL);
+    activity = select(max_sd + 1 , readfds , NULL, NULL ,
+        ((server->timeout.tv_sec == 0 && server->timeout.tv_usec == 0) ?
+        NULL : &server->timeout));
     if ((activity < 0) && (errno != EINTR)) {
         perror("select() fail");
         return (FAILURE);

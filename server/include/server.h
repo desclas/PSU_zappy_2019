@@ -39,6 +39,7 @@
 #define FAILURE 84
 #define MAX_CLIENTS 10
 #define INVALID_SOCKET -1
+#define FOOD_FREQ ((((float)160) / server->input->freq) * 1000000)
 
 typedef struct sockaddr_in SOCKADDR_IN;
 typedef struct sockaddr SOCKADDR;
