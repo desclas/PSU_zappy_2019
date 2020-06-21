@@ -115,6 +115,7 @@ char *extract_cmd(client_t *client);
 void time_it(client_t *client);
 double get_day_time_in_microseconds(void);
 int check_cmd_deadline(double started_time, double time);
+void get_timeout(void);
 
 /*
 ** UTILS
