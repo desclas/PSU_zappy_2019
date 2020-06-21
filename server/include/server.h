@@ -65,9 +65,7 @@ typedef struct server_s {
     host_t *host;
     struct timeval timeout;
     int sd;
-    int pos_sock;
     fd_set readfds;
-    fd_set writefds;
 } server_t;
 
 extern server_t *server;
